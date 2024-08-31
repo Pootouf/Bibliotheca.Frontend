@@ -9,7 +9,7 @@ namespace Bibliotheca.Models
 
         public ImageData? CoverImage { get; set; }
 
-        public IEnumerable<ImageData>? Images { get; set; }
+        public IList<ImageData>? Images { get; set; }
 
         public DateTime? ObservationDate { get; set; }
 

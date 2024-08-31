@@ -9,6 +9,8 @@ namespace Bibliotheca.Backend.Query
         [Required]
         public ImageDataQuery? CoverImageData { get; set; }
 
+        public IList<ImageDataQuery>? Images { get; set; }
+
         [Required]
         public DateTime? ObservationDate { get; set; }
 

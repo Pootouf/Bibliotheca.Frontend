@@ -25,20 +25,22 @@ namespace Bibliotheca.Backend.Services
 
             if (query.CoverImageData != null)
             {
-                ImageData cover = new ImageData();
-                cover.Description = query.CoverImageData.Description;
-                cover.ImagePath = query.CoverImageData.ImagePath;
-                observation.CoverImage = cover;
+                observation.CoverImage = GetImageDataFromQuery(query.CoverImageData);
             }
             observation.Images = new List<ImageData>();
-            foreach (ImageDataQuery imageQuery in query.ImagesData)
+            foreach (ImageDataQuery imageQuery in query.Images)
             {
-                ImageData image = new ImageData();
-                image.Description = imageQuery.Description;
-                image.ImagePath = imageQuery.ImagePath;
-                observation.Images.Prepend(image);
+                observation.Images.Add(GetImageDataFromQuery(imageQuery));
             }
             return observation;
+        }
+
+        public ImageData GetImageDataFromQuery(ImageDataQuery query)
+        {
+            ImageData image = new ImageData();
+            image.Description = query.Description;
+            image.ImagePath = query.ImagePath;
+            return image;
         }
 
     }
