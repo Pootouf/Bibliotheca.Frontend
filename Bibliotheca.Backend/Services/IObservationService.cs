@@ -8,5 +8,7 @@ namespace Bibliotheca.Backend.Services
 
         public AnimalObservation GetAnimalObservationFromQuery(AnimalObservationQuery query);
 
+        public ImageData GetImageDataFromQuery(ImageDataQuery query);
+
     }
 }

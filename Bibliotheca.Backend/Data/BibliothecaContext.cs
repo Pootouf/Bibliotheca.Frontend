@@ -15,5 +15,6 @@ namespace Bibliotheca.Data
         }
 
         public DbSet<Bibliotheca.Models.AnimalObservation> AnimalObservation { get; set; } = default!;
+        public DbSet<Bibliotheca.Models.ImageData> ImageData { get; set; } = default!;
     }
 }

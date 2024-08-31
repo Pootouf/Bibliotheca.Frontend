@@ -81,7 +81,7 @@ namespace Bibliotheca.Controllers
         // POST: api/AnimalObservations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AnimalObservation>> PostAnimalObservation([FromForm] AnimalObservationQuery animalObservation)
+        public async Task<ActionResult<AnimalObservation>> PostAnimalObservation(AnimalObservationQuery animalObservation)
         {
             var observation = _observationService.GetAnimalObservationFromQuery(animalObservation);
             _context.AnimalObservation.Add(observation);
@@ -89,6 +89,7 @@ namespace Bibliotheca.Controllers
 
             return CreatedAtAction("GetAnimalObservation", new { id = observation.Id }, observation);
         }
+
 
         // DELETE: api/AnimalObservations/5
         [HttpDelete("{id}")]
