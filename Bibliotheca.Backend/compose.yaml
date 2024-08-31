@@ -1,0 +1,32 @@
+version: '3.9'
+
+services:
+
+  bibliotheca:
+    build:
+        dockerfile: Dockerfile
+    restart: always
+    environment:
+        DATABASE_USER: ${DATABASE_USER}
+        DATABASE_PASSWORD: ${DATABASE_PASSWORD}
+    ports:
+        - "8080:8080"
+        
+
+  db:
+    image: postgres
+    container_name: database_bibliotheca
+    restart: always
+    # set shared memory limit when using docker-compose
+    shm_size: 128mb
+    # or set shared memory limit when deploy via swarm stack
+    #volumes:
+    #  - type: tmpfs
+    #    target: /dev/shm
+    #    tmpfs:
+    #      size: 134217728 # 128*2^20 bytes = 128Mb
+    ports:
+        - "5432"
+    environment:
+      POSTGRES_USER: ${DATABASE_USER}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}

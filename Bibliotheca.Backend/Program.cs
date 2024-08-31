@@ -1,6 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using Bibliotheca.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BibliothecaContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("BibliothecaContext") ?? throw new InvalidOperationException("Connection string 'BibliothecaContext' not found.")));

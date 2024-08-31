@@ -8,7 +8,7 @@
         public string? Phylum { get; set; }
 
         public string? Class { get; set; }
-        
+
         public string? Order { get; set; }
 
         public string? Family { get; set; }

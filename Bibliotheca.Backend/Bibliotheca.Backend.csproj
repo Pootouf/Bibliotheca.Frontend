@@ -4,17 +4,9 @@
     <TargetFramework>net8.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
-    <UserSecretsId>a999d014-5e42-4842-99b9-13c38ed3c71f</UserSecretsId>
+    <UserSecretsId>881f2fae-d387-4e3f-ba85-fb5e67ab8572</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
-    <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Back\**" />
-    <Content Remove="Back\**" />
-    <EmbeddedResource Remove="Back\**" />
-    <None Remove="Back\**" />
-  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.21.0" />
