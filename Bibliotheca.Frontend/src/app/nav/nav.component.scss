@@ -1,0 +1,33 @@
+@import '../../styles/variables';
+@import '../../styles/anim';
+
+.nav-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    background: rgb(69,91,73);
+    background: linear-gradient(90deg, rgba(69,91,73,1) 28%, rgba(25,87,11,1) 100%);
+    width: 100%;
+}
+
+.nav-title {
+    margin: 0;
+    margin-right: 5rem;
+    margin-left: 3rem;
+}
+
+.nav-button {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding: 1rem;
+    text-decoration: none;
+    color: #000000;
+
+    &:hover {
+        background-color: $black-transparent;
+        border-radius: 1rem;
+        transition: all 0.1s ease-in;
+    }
+}

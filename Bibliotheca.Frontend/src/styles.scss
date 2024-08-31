@@ -1,1 +1,25 @@
-/* You can add global styles to this file, and also import other style files */
+@import 'styles/variables';
+
+@font-face {
+    font-family: regularFont;
+    src: url(../font/Nunito-Regular.ttf);
+}
+
+@font-face {
+    font-family: regularFont;
+    src: url(../font/Nunito-Bold.ttf);
+    font-weight: bold;
+}
+
+body {
+    background: $background-color;
+    overflow: hidden;
+    font-family: regularFont;
+    
+}
+
+html, body {
+    width: 100%;
+    min-height: 100%;
+    margin: 0;
+}
