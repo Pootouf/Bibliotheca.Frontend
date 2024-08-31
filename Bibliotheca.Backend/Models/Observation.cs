@@ -1,7 +1,10 @@
-﻿namespace Bibliotheca.Models
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace Bibliotheca.Models
 {
-    public class Observation
+    public partial class Observation
     {
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public Guid Id { get; set; }
 
         public ImageData? CoverImage { get; set; }

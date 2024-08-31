@@ -1,4 +1,6 @@
-﻿using Bibliotheca.Data;
+﻿using Bibliotheca.Backend.Query;
+using Bibliotheca.Backend.Services;
+using Bibliotheca.Data;
 using Bibliotheca.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -16,9 +18,12 @@ namespace Bibliotheca.Controllers
     {
         private readonly BibliothecaContext _context;
 
-        public AnimalObservationsController(BibliothecaContext context)
+        private readonly IObservationService _observationService;
+
+        public AnimalObservationsController(BibliothecaContext context, IObservationService observationService)
         {
             _context = context;
+            _observationService = observationService;
         }
 
         // GET: api/AnimalObservations
@@ -76,12 +81,13 @@ namespace Bibliotheca.Controllers
         // POST: api/AnimalObservations
         // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
-        public async Task<ActionResult<AnimalObservation>> PostAnimalObservation(AnimalObservation animalObservation)
+        public async Task<ActionResult<AnimalObservation>> PostAnimalObservation([FromForm] AnimalObservationQuery animalObservation)
         {
-            _context.AnimalObservation.Add(animalObservation);
+            var observation = _observationService.GetAnimalObservationFromQuery(animalObservation);
+            _context.AnimalObservation.Add(observation);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAnimalObservation", new { id = animalObservation.Id }, animalObservation);
+            return CreatedAtAction("GetAnimalObservation", new { id = observation.Id }, observation);
         }
 
         // DELETE: api/AnimalObservations/5
