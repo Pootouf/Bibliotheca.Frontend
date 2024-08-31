@@ -25,7 +25,7 @@ namespace Bibliotheca.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AnimalObservation>>> GetAnimalObservation()
         {
-            return await _context.AnimalObservation.ToListAsync();
+            return await _context.AnimalObservation.AsQueryable().Include(o => o.CoverImage).Include(o => o.Images).ToListAsync();
         }
 
         // GET: api/AnimalObservations/5
