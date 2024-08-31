@@ -1,0 +1,27 @@
+@import '../../styles/variables';
+@import '../../styles/anim';
+
+.nav-menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-top: 1rem;
+}
+
+.nav-title {
+    margin: 0;
+    margin-right: 5rem;
+    margin-left: 3rem;
+}
+
+.nav-button {
+    margin-left: 2rem;
+    margin-right: 2rem;
+    padding: 1rem;
+
+    &:hover {
+        background-color: $background-darker-transparent;
+        border-radius: 1rem;
+        transition: all 0.1s ease-in;
+    }
+}
