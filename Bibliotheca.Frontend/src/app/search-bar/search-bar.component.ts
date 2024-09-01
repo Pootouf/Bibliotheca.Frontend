@@ -28,6 +28,13 @@ export class SearchBarComponent implements OnInit {
 
   async ngOnInit() {
     this.kingdomList = await this.speciesService.getKingdomsData("");
+    this.phylumList = await this.speciesService.getPhylumsData("");
+    this.classList = await this.speciesService.getClassData("");
+    this.orderList = await this.speciesService.getOrderData("");
+    this.familyList = await this.speciesService.getFamilyData("");
+    this.tribeList = await this.speciesService.getTribeData("");
+    this.genusList = await this.speciesService.getGenusData("");
+    this.speciesList = await this.speciesService.getSpeciesData("");
   }
 
 
@@ -38,6 +45,34 @@ export class SearchBarComponent implements OnInit {
 
   async onNewKingdomValue(newValue: string) {
     this.kingdomList = await this.speciesService.getKingdomsData(newValue);
+  }
+
+  async onNewPhylumValue(newValue: string) {
+    this.phylumList = await this.speciesService.getPhylumsData(newValue);
+  }
+
+  async onNewClassValue(newValue: string) {
+    this.classList = await this.speciesService.getClassData(newValue);
+  }
+
+  async onNewOrderValue(newValue: string) {
+    this.orderList = await this.speciesService.getOrderData(newValue);
+  }
+
+  async onNewFamilyValue(newValue: string) {
+    this.familyList = await this.speciesService.getFamilyData(newValue);
+  }
+
+  async onNewTribeValue(newValue: string) {
+    this.tribeList = await this.speciesService.getTribeData(newValue);
+  }
+
+  async onNewGenusValue(newValue: string) {
+    this.genusList = await this.speciesService.getGenusData(newValue);
+  }
+
+  async onNewSpeciesValue(newValue: string) {
+    this.speciesList = await this.speciesService.getSpeciesData(newValue);
   }
 
 }
