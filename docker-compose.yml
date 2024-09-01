@@ -4,6 +4,7 @@ services:
 
   bibliotheca.backend:
     image: ${DOCKER_REGISTRY-}bibliothecabackend
+    container_name: bibliotheca-backend
     build:
       context: .
       dockerfile: Bibliotheca.Backend/Dockerfile
