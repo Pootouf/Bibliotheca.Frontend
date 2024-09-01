@@ -13,13 +13,12 @@
 
 body {
     background: $background-color;
-    overflow: hidden;
     font-family: regularFont;
     
 }
 
 html, body {
-    width: 100%;
+    min-width: 100%;
     min-height: 100%;
     margin: 0;
 }
