@@ -1,0 +1,5 @@
+<div class="autocompletion_fields">
+    @for (proposal of autocompleteProposition; track $index) {
+        <button type="button" value="{{proposal}}" (click)="onProposalClick($event)">{{proposal}}</button>
+    }
+</div>

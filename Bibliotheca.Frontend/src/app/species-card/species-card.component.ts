@@ -8,8 +8,8 @@ import { Component, Input } from '@angular/core';
 })
 export class SpeciesCardComponent {
 
-  @Input() speciesName: String = "";
-  @Input() vernacularName: String = "";
-  @Input() imagePath: String = "";
+  @Input() speciesName: string = "";
+  @Input() vernacularName: string = "";
+  @Input() imagePath: string = "";
 
 }

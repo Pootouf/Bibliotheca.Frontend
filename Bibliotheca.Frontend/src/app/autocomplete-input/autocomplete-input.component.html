@@ -1,0 +1,7 @@
+<div class="relative">
+    <div class="field">
+        <input [name]="inputName" id="input_{{inputName}}" placeholder="{{labelName}}" [(ngModel)]="inputValue">
+        <label for="input_{{inputName}}">{{labelName}}</label>
+    </div>
+    <app-completion-list [autocompleteProposition]="autocompleteProposition" (newSelectedValueEvent)="onNewSelectedValue($event)"></app-completion-list>
+</div>

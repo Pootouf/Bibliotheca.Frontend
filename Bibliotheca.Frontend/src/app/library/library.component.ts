@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { SearchBarComponent } from '../search-bar/search-bar.component';
 import { SpeciesCardComponent } from '../species-card/species-card.component';
 
@@ -9,6 +9,7 @@ import { SpeciesCardComponent } from '../species-card/species-card.component';
   standalone: true,
   imports: [SearchBarComponent, SpeciesCardComponent]
 })
-export class LibraryComponent {
+export class LibraryComponent{
+
 
 }
