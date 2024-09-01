@@ -21,6 +21,9 @@ export class AutocompleteInputComponent {
     this.newValueEvent.emit(value);
     this._inputValue = value;
   }
+  get inputValue() {
+    return this._inputValue;
+  }
 
   onNewSelectedValue(value: string) {
     this.inputValue = value;
