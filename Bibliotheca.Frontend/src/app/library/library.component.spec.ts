@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LibraryInsectComponent } from './library.component';
+import { LibraryComponent } from './library.component';
 
-describe('LibraryInsectComponent', () => {
-  let component: LibraryInsectComponent;
-  let fixture: ComponentFixture<LibraryInsectComponent>;
+describe('LibraryComponent', () => {
+  let component: LibraryComponent;
+  let fixture: ComponentFixture<LibraryComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [LibraryInsectComponent]
+      declarations: [LibraryComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(LibraryInsectComponent);
+    fixture = TestBed.createComponent(LibraryComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
