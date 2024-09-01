@@ -45,7 +45,7 @@ export class SpeciesService {
 
   private async getData(termBeginning: string, taxonRank: string) : Promise<TaxonData[]> {
     return await fetch(this.apiUrl + "/taxa/autocomplete?taxonomicRanks=" + taxonRank +  "&term=" + termBeginning + "&page=1&size=20")
-            .then(res => res.json())
+            .then(res => res.ok ? res.json() : {_embedded: null})
             .then(res => {
               return (res._embedded ?? {taxa: []}).taxa.map((element: { id: number; scientificName: string; }) => 
                 new TaxonData(element.id, element.scientificName)
