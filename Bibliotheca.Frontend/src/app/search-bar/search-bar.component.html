@@ -1,5 +1,10 @@
 <form class="searchBar">
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(kingdomList)" labelName="Règne: " inputName="kingdom"></app-autocomplete-input>
+    <app-autocomplete-input 
+        [autocompleteProposition]="getNameProposition(kingdomList)" 
+        labelName="Règne: " 
+        inputName="kingdom"
+        (newValueEvent)="onNewKingdomValue($event)">
+    </app-autocomplete-input>
     <app-autocomplete-input [autocompleteProposition]="getNameProposition(phylumList)" labelName="Phylum: " inputName="phylum"></app-autocomplete-input>
     <app-autocomplete-input [autocompleteProposition]="getNameProposition(classList)" labelName="Classe: " inputName="class"></app-autocomplete-input>
     <app-autocomplete-input [autocompleteProposition]="getNameProposition(orderList)" labelName="Ordre: " inputName="order"></app-autocomplete-input>

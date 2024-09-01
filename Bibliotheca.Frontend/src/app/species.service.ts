@@ -11,11 +11,11 @@ export class SpeciesService {
 
   constructor() { }
 
-  public async getKingdomsData() : Promise<TaxonData[]> {
-      return await fetch(this.apiUrl + "/taxa/search?taxonomicRanks=KD")
+  public async getKingdomsData(termBeginning: string) : Promise<TaxonData[]> {
+      return await fetch(this.apiUrl + "/taxa/autocomplete?taxonomicRanks=KD&term=" + termBeginning + "&page=1&size=20")
               .then(res => res.json())
               .then(res => {
-                return res._embedded.taxa.map((element: { id: number; scientificName: string; }) => 
+                return (res._embedded ?? {taxa: []}).taxa.map((element: { id: number; scientificName: string; }) => 
                   new TaxonData(element.id, element.scientificName)
                 );
               });

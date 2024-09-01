@@ -27,16 +27,17 @@ export class SearchBarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.kingdomList = await this.speciesService.getKingdomsData()
+    this.kingdomList = await this.speciesService.getKingdomsData("");
   }
 
-  onKingdomChange(event: any) {
-    let value = event.target.value;
-    
-  }
+
 
   getNameProposition(data: TaxonData[]) : string[] {
     return data.map(d => d.name);
+  }
+
+  async onNewKingdomValue(newValue: string) {
+    this.kingdomList = await this.speciesService.getKingdomsData(newValue);
   }
 
 }

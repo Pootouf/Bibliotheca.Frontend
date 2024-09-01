@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { CompletionListComponent } from '../completion-list/completion-list.component';
 import { FormsModule } from '@angular/forms';
 
@@ -14,7 +14,13 @@ export class AutocompleteInputComponent {
   @Input() autocompleteProposition: string[] = []
   @Input() labelName: string = "";
   @Input() inputName: string = "";
-  inputValue: string = "";
+  @Output() newValueEvent: EventEmitter<string> = new EventEmitter<string>();
+  _inputValue: string = ""
+
+  set inputValue(value: string) {
+    this.newValueEvent.emit(value);
+    this._inputValue = value;
+  }
 
   onNewSelectedValue(value: string) {
     this.inputValue = value;
