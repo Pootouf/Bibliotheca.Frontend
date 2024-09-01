@@ -1,0 +1,21 @@
+<form class="searchBar">
+    <app-autocomplete-input 
+        [autocompleteProposition]="getNameProposition(kingdomList)" 
+        labelName="Règne: " 
+        inputName="kingdom"
+        (newValueEvent)="onNewKingdomValue($event)">
+    </app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(phylumList)" labelName="Phylum: " inputName="phylum"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(classList)" labelName="Classe: " inputName="class"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(orderList)" labelName="Ordre: " inputName="order"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(familyList)" labelName="Famille: " inputName="family"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(tribeList)" labelName="Tribu: " inputName="tribe"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(genusList)" labelName="Genre: " inputName="genus"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(speciesList)" labelName="Espèce: " inputName="species"></app-autocomplete-input>
+    <app-autocomplete-input [autocompleteProposition]="getNameProposition(vernacularNameList)" labelName="Nom commun: " inputName="vernacular-name"></app-autocomplete-input>
+
+    <div class="field">
+        <input type="submit" value="Rechercher">
+    </div>
+    
+</form>

@@ -1,0 +1,16 @@
+.title {
+    width: 100%;
+    text-align: center;
+    color: rgb(197, 197, 197);
+}
+
+.library {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 3rem;
+}
+
+app-species-card {
+    margin: 2rem;
+}

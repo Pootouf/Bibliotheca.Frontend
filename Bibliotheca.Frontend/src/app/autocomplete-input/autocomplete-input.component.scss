@@ -1,0 +1,65 @@
+.field {
+    padding-left: 1rem;
+    padding-right: 1rem;
+    position: relative;
+    padding-top: 1.2rem;
+    margin-bottom: 1.2rem;
+}
+
+label {
+    position: absolute;
+    top: 0;
+    display: block;
+    transition: 0.2s;
+    font-size: 1rem;
+    color: lightgray;
+}
+
+input {
+    width: 100%;
+    border: 0;
+    border-bottom: 2px solid lightgray;
+    outline: 0;
+    font-size: 1.3rem;
+    color: white;
+    background: transparent;
+    transition: border-color 0.2s;
+
+    &::placeholder {
+        color: transparent;
+    }
+
+    &:placeholder-shown ~ label {
+        font-size: 1.3rem;
+        cursor: text;
+        top: 1.2rem;
+    }
+
+    &:focus {
+        ~ label {
+            position: absolute;
+            top: 0;
+            display: block;
+            transition: 0.2s;  
+            font-size: 0.8rem;
+          }
+    }
+}
+
+
+.relative {
+    position: relative;
+}
+
+app-completion-list {
+    transform: scaleY(0);    
+    transform-origin: top;
+    transition: all 0.26s 0.1s ease;
+    position: absolute;
+    width: 100%;
+    z-index: 10;
+
+    div:has(input:focus) ~ & {
+        transform: scaleY(1);
+    }
+}
