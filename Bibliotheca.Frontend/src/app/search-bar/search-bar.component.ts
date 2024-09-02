@@ -37,14 +37,14 @@ export class SearchBarComponent implements OnInit {
   }
 
   async ngOnInit() {
-    this.kingdomList = await this.speciesService.getKingdomsData("", []);
-    this.phylumList = await this.speciesService.getPhylumsData("", []);
-    this.classList = await this.speciesService.getClassData("", []);
-    this.orderList = await this.speciesService.getOrderData("", []);
-    this.familyList = await this.speciesService.getFamilyData("", []);
-    this.tribeList = await this.speciesService.getTribeData("", []);
-    this.genusList = await this.speciesService.getGenusData("", []);
-    this.speciesList = await this.speciesService.getSpeciesData("", []);
+    this.kingdomList = await this.speciesService.getData("", this.kingdomRank, []);
+    this.phylumList = await this.speciesService.getData("", this.phylumRank, []);
+    this.classList = await this.speciesService.getData("", this.classRank, []);
+    this.orderList = await this.speciesService.getData("", this.orderRank, []);
+    this.familyList = await this.speciesService.getData("", this.familyRank, []);
+    this.tribeList = await this.speciesService.getData("", this.tribeRank, []);
+    this.genusList = await this.speciesService.getData("", this.genusRank, []);
+    this.speciesList = await this.speciesService.getData("", this.speciesRank, []);
   }
 
 
@@ -54,43 +54,43 @@ export class SearchBarComponent implements OnInit {
   }
 
   async onNewKingdomValue(newValue: string) {
-    this.kingdomRank = await this.speciesService.getTaxonRankByValue(newValue, this.kingdomRank.rank);
-    this.kingdomList = await this.speciesService.getKingdomsData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.kingdomRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.kingdomRank);
+    this.kingdomList = await this.speciesService.getData(newValue, this.kingdomRank, []);
   }
 
   async onNewPhylumValue(newValue: string) {
-    this.phylumRank = await this.speciesService.getTaxonRankByValue(newValue, this.phylumRank.rank);
-    this.phylumList = await this.speciesService.getPhylumsData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.phylumRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.phylumRank);
+    this.phylumList = await this.speciesService.getData(newValue, this.phylumRank, [this.kingdomRank]);
   }
 
   async onNewClassValue(newValue: string) {
-    this.classRank = await this.speciesService.getTaxonRankByValue(newValue, this.classRank.rank);
-    this.classList = await this.speciesService.getClassData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.classRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.classRank);
+    this.classList = await this.speciesService.getData(newValue, this.classRank, [this.phylumRank, this.kingdomRank]);
   }
 
   async onNewOrderValue(newValue: string) {
-    this.orderRank = await this.speciesService.getTaxonRankByValue(newValue, this.orderRank.rank);
-    this.orderList = await this.speciesService.getOrderData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.orderRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.orderRank);
+    this.orderList = await this.speciesService.getData(newValue, this.orderRank, [this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
   async onNewFamilyValue(newValue: string) {
-    this.familyRank = await this.speciesService.getTaxonRankByValue(newValue, this.familyRank.rank);
-    this.familyList = await this.speciesService.getFamilyData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.familyRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.familyRank);
+    this.familyList = await this.speciesService.getData(newValue, this.familyRank, [this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
   async onNewTribeValue(newValue: string) {
-    this.tribeRank = await this.speciesService.getTaxonRankByValue(newValue, this.tribeRank.rank);
-    this.tribeList = await this.speciesService.getTribeData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.tribeRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.tribeRank);
+    this.tribeList = await this.speciesService.getData(newValue, this.tribeRank, [this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
   async onNewGenusValue(newValue: string) {
-    this.genusRank = await this.speciesService.getTaxonRankByValue(newValue, this.genusRank.rank);
-    this.genusList = await this.speciesService.getGenusData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.genusRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.genusRank);
+    this.genusList = await this.speciesService.getData(newValue, this.genusRank, [this.tribeRank, this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
   async onNewSpeciesValue(newValue: string) {
-    this.speciesRank = await this.speciesService.getTaxonRankByValue(newValue, this.speciesRank.rank);
-    this.speciesList = await this.speciesService.getSpeciesData(newValue, [this.kingdomRank, this.phylumRank, this.classRank, this.orderRank, this.familyRank, this.tribeRank, this.genusRank, this.speciesRank]);
+    this.speciesRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.speciesRank);
+    this.speciesList = await this.speciesService.getData(newValue, this.speciesRank, [this.genusRank, this.tribeRank, this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
 }
