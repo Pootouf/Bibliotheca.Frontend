@@ -43,3 +43,17 @@ p {
     bottom: 3%;
     left: 5%;
 }
+
+@media (max-width: 600px) {
+
+    .card {
+        width: 80vw;
+        height: 25vh;
+    
+        &:hover {
+            width: 90vw;
+            height: 30vh;
+        }
+    }
+
+}
