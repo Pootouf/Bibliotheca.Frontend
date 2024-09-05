@@ -18,7 +18,6 @@ export class SearchBarComponent implements OnInit {
   classList: TaxonData[] = [];
   orderList: TaxonData[] = [];
   familyList: TaxonData[] = [];
-  tribeList: TaxonData[] = [];
   genusList: TaxonData[] = [];
   speciesList: TaxonData[] = [];
   vernacularNameList: TaxonData[] = [];
@@ -28,7 +27,6 @@ export class SearchBarComponent implements OnInit {
   classRank: TaxonRank = new TaxonRank(-1, "CLASS");
   orderRank: TaxonRank = new TaxonRank(-1, "ORDER");
   familyRank: TaxonRank = new TaxonRank(-1, "FAMILY");
-  tribeRank: TaxonRank = new TaxonRank(-1, "TRIBE");
   genusRank: TaxonRank = new TaxonRank(-1, "GENUS");
   speciesRank: TaxonRank = new TaxonRank(-1, "SPECIES");
 
@@ -42,7 +40,6 @@ export class SearchBarComponent implements OnInit {
     this.classList = await this.speciesService.getData("", this.classRank, []);
     this.orderList = await this.speciesService.getData("", this.orderRank, []);
     this.familyList = await this.speciesService.getData("", this.familyRank, []);
-    this.tribeList = await this.speciesService.getData("", this.tribeRank, []);
     this.genusList = await this.speciesService.getData("", this.genusRank, []);
     this.speciesList = await this.speciesService.getData("", this.speciesRank, []);
   }
@@ -78,19 +75,14 @@ export class SearchBarComponent implements OnInit {
     this.familyList = await this.speciesService.getData(newValue, this.familyRank, [this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
-  async onNewTribeValue(newValue: string) {
-    this.tribeRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.tribeRank);
-    this.tribeList = await this.speciesService.getData(newValue, this.tribeRank, [this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
-  }
-
   async onNewGenusValue(newValue: string) {
     this.genusRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.genusRank);
-    this.genusList = await this.speciesService.getData(newValue, this.genusRank, [this.tribeRank, this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
+    this.genusList = await this.speciesService.getData(newValue, this.genusRank, [this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
   async onNewSpeciesValue(newValue: string) {
     this.speciesRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.speciesRank);
-    this.speciesList = await this.speciesService.getData(newValue, this.speciesRank, [this.genusRank, this.tribeRank, this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
+    this.speciesList = await this.speciesService.getData(newValue, this.speciesRank, [this.genusRank, this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
   }
 
 }
