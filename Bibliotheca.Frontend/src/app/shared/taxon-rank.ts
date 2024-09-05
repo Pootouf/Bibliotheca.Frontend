@@ -1,6 +1,7 @@
+
 export class TaxonRank {
     id: number = 0;
-    rank: string = "";
+    rank: string;
 
     public constructor(id: number, rank: string) {
         this.id = id;
