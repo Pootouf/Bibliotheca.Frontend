@@ -23,14 +23,14 @@ export class SearchBarComponent implements OnInit {
   speciesList: TaxonData[] = [];
   vernacularNameList: TaxonData[] = [];
 
-  kingdomRank: TaxonRank = new TaxonRank(-1, "KD");
-  phylumRank: TaxonRank = new TaxonRank(-1, "PH");
-  classRank: TaxonRank = new TaxonRank(-1, "CL");
-  orderRank: TaxonRank = new TaxonRank(-1, "OR");
-  familyRank: TaxonRank = new TaxonRank(-1, "FM");
-  tribeRank: TaxonRank = new TaxonRank(-1, "TR");
-  genusRank: TaxonRank = new TaxonRank(-1, "GN");
-  speciesRank: TaxonRank = new TaxonRank(-1, "ES");
+  kingdomRank: TaxonRank = new TaxonRank(-1, "KINGDOM");
+  phylumRank: TaxonRank = new TaxonRank(-1, "PHYLUM");
+  classRank: TaxonRank = new TaxonRank(-1, "CLASS");
+  orderRank: TaxonRank = new TaxonRank(-1, "ORDER");
+  familyRank: TaxonRank = new TaxonRank(-1, "FAMILY");
+  tribeRank: TaxonRank = new TaxonRank(-1, "TRIBE");
+  genusRank: TaxonRank = new TaxonRank(-1, "GENUS");
+  speciesRank: TaxonRank = new TaxonRank(-1, "SPECIES");
 
   constructor(private speciesService: SpeciesService) {
 
