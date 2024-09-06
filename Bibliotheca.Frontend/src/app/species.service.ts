@@ -2,7 +2,8 @@ import { Injectable } from '@angular/core';
 import { TaxonData } from './shared/taxon-data';
 import { environment } from '../environments/environment.development';
 import { TaxonRank } from './shared/taxon-rank';
-import { SpeciesRank } from './species-rank';
+import { SpeciesRank } from './shared/species-rank';
+import { TaxonParentRank } from './shared/taxon-parent-rank';
 
 @Injectable({
   providedIn: 'root'
@@ -56,6 +57,37 @@ export class SpeciesService {
             }
           });
     }
+    return result;
+  }
+
+
+  public async getParentRanks(id: number) : Promise<TaxonParentRank> {
+    let result = new TaxonParentRank();
+    await fetch(this.apiUrl + "/species/" + id + "/parents")
+        .then(res => res.ok ? res.json() : [])
+        .then(res => {
+          for (const parent of res) {
+            switch(parent.rank) {
+              case SpeciesRank.Kingdom.name :
+                result.kingdom = parent.canonicalName;
+                break;
+              case SpeciesRank.Phylum.name :
+                result.phylum = parent.canonicalName;
+                break;
+              case SpeciesRank.Class.name : 
+                result.class = parent.canonicalName;
+                break;
+              case SpeciesRank.Order.name :
+                result.order = parent.canonicalName;
+                break;
+              case SpeciesRank.Family.name :
+                result.family = parent.canonicalName;
+                break;
+              case SpeciesRank.Genus.name :
+                result.genus = parent.canonicalName;
+            }
+          }
+        });
     return result;
   }
 }
