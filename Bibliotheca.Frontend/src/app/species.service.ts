@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { TaxonData } from './shared/taxon-data';
 import { environment } from '../environments/environment.development';
+import { TaxonRank } from './shared/taxon-rank';
+import { SpeciesRank } from './shared/species-rank';
+import { TaxonParentRank } from './shared/taxon-parent-rank';
 
 @Injectable({
   providedIn: 'root'
@@ -11,46 +14,81 @@ export class SpeciesService {
 
   constructor() { }
 
-  public async getKingdomsData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "KD");
-  }
-
-  public async getPhylumsData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "PH");
-  }
-
-  public async getClassData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "CL");
-  }
-
-  public async getOrderData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "OR");
-  }
-
-  public async getFamilyData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "FM");
-  }
-
-  public async getTribeData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "TR");
-  }
-
-  public async getGenusData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "GN");
-  }
-
-  public async getSpeciesData(termBeginning: string) : Promise<TaxonData[]> {
-    return this.getData(termBeginning, "ES");
-  }
-
-  private async getData(termBeginning: string, taxonRank: string) : Promise<TaxonData[]> {
-    return await fetch(this.apiUrl + "/taxa/autocomplete?taxonomicRanks=" + taxonRank +  "&term=" + termBeginning + "&page=1&size=10")
-            .then(res => res.ok ? res.json() : {_embedded: null})
+  public async calculateNewTaxonRankIdByValue(value: string, rank: TaxonRank): Promise<TaxonRank> {
+    return await fetch(this.apiUrl + "/species/search?q=" + value +  "&rank=" + rank.rank + "&limit=1")
+            .then(res => res.ok ? res.json() : [])
             .then(res => {
-              return (res._embedded ?? {taxa: []}).taxa.map((element: { id: number; scientificName: string; }) => 
-                new TaxonData(element.id, element.scientificName)
-              );
-            });
+              if (res.count == 0 || res.results[0].canonicalName != value || res.results[0].nubKey == undefined) {
+                rank.id = -1;
+              }
+              else {
+                rank.id = res.results[0].nubKey;
+              }
+              return rank;
+              });
+  }
+
+  public async getData(termBeginning: string, actualRank: TaxonRank, superiorTaxonRanks: TaxonRank[]) : Promise<TaxonData[]> {
+    let smallestFilterRank: TaxonRank | undefined = superiorTaxonRanks.find(rank => rank.id != -1);
+    if (smallestFilterRank == undefined) {
+      return await fetch(this.apiUrl + "/species/suggest?rank=" + actualRank.rank +  "&q=" + termBeginning)
+            .then(res => res.ok ? res.json() : [])
+            .then(res => 
+              res.map((element: { nubKey: number; canonicalName: string; }) => 
+                new TaxonData(element.nubKey, element.canonicalName)
+              )
+            );
+    }
+
+    let parentTaxons : number[] = [smallestFilterRank.id]
+    let result : TaxonData[] = []
+    while (result.length < 20 && parentTaxons.length > 0) {
+      let parent = parentTaxons[parentTaxons.length - 1];
+      parentTaxons.pop();
+      await fetch(this.apiUrl + "/species/" + parent + "/children")
+          .then(res => res.ok ? res.json() : {results: []})
+          .then(res => { 
+            for (const element of res.results) {
+              if (SpeciesRank.getSpeciesRankFromValue(element.rank).priority < SpeciesRank.getSpeciesRankFromValue(actualRank.rank).priority && element.nubKey != undefined) {
+                parentTaxons.push(element.nubKey)
+              } else if (actualRank.rank == element.rank) {
+                result.push(new TaxonData(element.nubKey, element.canonicalName))
+              }
+            }
+          });
+    }
+    return result;
+  }
+
+
+  public async getParentRanks(id: number) : Promise<TaxonParentRank> {
+    let result = new TaxonParentRank();
+    await fetch(this.apiUrl + "/species/" + id + "/parents")
+        .then(res => res.ok ? res.json() : [])
+        .then(res => {
+          for (const parent of res) {
+            switch(parent.rank) {
+              case SpeciesRank.Kingdom.name :
+                result.kingdom = parent.canonicalName;
+                break;
+              case SpeciesRank.Phylum.name :
+                result.phylum = parent.canonicalName;
+                break;
+              case SpeciesRank.Class.name : 
+                result.class = parent.canonicalName;
+                break;
+              case SpeciesRank.Order.name :
+                result.order = parent.canonicalName;
+                break;
+              case SpeciesRank.Family.name :
+                result.family = parent.canonicalName;
+                break;
+              case SpeciesRank.Genus.name :
+                result.genus = parent.canonicalName;
+            }
+          }
+        });
+    return result;
   }
 }
 

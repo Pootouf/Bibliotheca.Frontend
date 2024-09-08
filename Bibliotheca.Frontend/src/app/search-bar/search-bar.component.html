@@ -1,17 +1,16 @@
 <form class="searchBar">
-    <app-autocomplete-input 
+    <app-autocomplete-input #kingdomInput
         [autocompleteProposition]="getNameProposition(kingdomList)" 
         labelName="Règne: " 
         inputName="kingdom"
         (newValueEvent)="onNewKingdomValue($event)">
     </app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(phylumList)" labelName="Phylum: " inputName="phylum" (newValueEvent)="onNewPhylumValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(classList)" labelName="Classe: " inputName="class" (newValueEvent)="onNewClassValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(orderList)" labelName="Ordre: " inputName="order" (newValueEvent)="onNewOrderValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(familyList)" labelName="Famille: " inputName="family" (newValueEvent)="onNewFamilyValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(tribeList)" labelName="Tribu: " inputName="tribe" (newValueEvent)="onNewTribeValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(genusList)" labelName="Genre: " inputName="genus" (newValueEvent)="onNewGenusValue($event)"></app-autocomplete-input>
-    <app-autocomplete-input [autocompleteProposition]="getNameProposition(speciesList)" labelName="Espèce: " inputName="species" (newValueEvent)="onNewSpeciesValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #phylumInput [autocompleteProposition]="getNameProposition(phylumList)" labelName="Phylum: " inputName="phylum" (newValueEvent)="onNewPhylumValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #classInput [autocompleteProposition]="getNameProposition(classList)" labelName="Classe: " inputName="class" (newValueEvent)="onNewClassValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #orderInput [autocompleteProposition]="getNameProposition(orderList)" labelName="Ordre: " inputName="order" (newValueEvent)="onNewOrderValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #familyInput [autocompleteProposition]="getNameProposition(familyList)" labelName="Famille: " inputName="family" (newValueEvent)="onNewFamilyValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #genusInput [autocompleteProposition]="getNameProposition(genusList)" labelName="Genre: " inputName="genus" (newValueEvent)="onNewGenusValue($event)"></app-autocomplete-input>
+    <app-autocomplete-input #speciesInput [autocompleteProposition]="getNameProposition(speciesList)" labelName="Espèce: " inputName="species" (newValueEvent)="onNewSpeciesValue($event)"></app-autocomplete-input>
     <app-autocomplete-input [autocompleteProposition]="getNameProposition(vernacularNameList)" labelName="Nom commun: " inputName="vernacular-name"></app-autocomplete-input>
 
     <div class="field">
