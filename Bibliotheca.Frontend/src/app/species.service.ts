@@ -18,7 +18,7 @@ export class SpeciesService {
     return await fetch(this.apiUrl + "/species/search?q=" + value +  "&rank=" + rank.rank + "&limit=1")
             .then(res => res.ok ? res.json() : [])
             .then(res => {
-              if (res.count == 0 || res.results[0].canonicalName != value || res.results[0].nubKey == undefined) {
+              if (res.count == 0 || (res.results[0].canonicalName ?? res.results[0].scientificName) != value || res.results[0].nubKey == undefined) {
                 rank.id = -1;
               }
               else {
@@ -34,8 +34,8 @@ export class SpeciesService {
       return await fetch(this.apiUrl + "/species/suggest?rank=" + actualRank.rank +  "&q=" + termBeginning)
             .then(res => res.ok ? res.json() : [])
             .then(res => 
-              res.map((element: { nubKey: number; canonicalName: string; }) => 
-                new TaxonData(element.nubKey, element.canonicalName)
+              res.map((element: {scientificName: string; nubKey: number; canonicalName: string;}) => 
+                new TaxonData(element.nubKey, element.canonicalName ?? element.scientificName)
               )
             );
     }
@@ -52,7 +52,7 @@ export class SpeciesService {
               if (SpeciesRank.getSpeciesRankFromValue(element.rank).priority < SpeciesRank.getSpeciesRankFromValue(actualRank.rank).priority && element.nubKey != undefined) {
                 parentTaxons.push(element.nubKey)
               } else if (actualRank.rank == element.rank) {
-                result.push(new TaxonData(element.nubKey, element.canonicalName))
+                result.push(new TaxonData(element.nubKey, element.canonicalName ?? element.scientificName))
               }
             }
           });
@@ -69,22 +69,22 @@ export class SpeciesService {
           for (const parent of res) {
             switch(parent.rank) {
               case SpeciesRank.Kingdom.name :
-                result.kingdom = parent.canonicalName;
+                result.kingdom = parent.canonicalName ?? parent.scientificName;
                 break;
               case SpeciesRank.Phylum.name :
-                result.phylum = parent.canonicalName;
+                result.phylum = parent.canonicalName ?? parent.scientificName;
                 break;
               case SpeciesRank.Class.name : 
-                result.class = parent.canonicalName;
+                result.class = parent.canonicalName ?? parent.scientificName;
                 break;
               case SpeciesRank.Order.name :
-                result.order = parent.canonicalName;
+                result.order = parent.canonicalName ?? parent.scientificName;
                 break;
               case SpeciesRank.Family.name :
-                result.family = parent.canonicalName;
+                result.family = parent.canonicalName ?? parent.scientificName;
                 break;
               case SpeciesRank.Genus.name :
-                result.genus = parent.canonicalName;
+                result.genus = parent.canonicalName ?? parent.scientificName;
             }
           }
         });
