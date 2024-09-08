@@ -15,6 +15,7 @@ import { TaxonParentRank } from '../shared/taxon-parent-rank';
 })
 export class SearchBarComponent implements OnInit {
 
+  //Represents the auto completion proposition
   kingdomList: TaxonData[] = [];
   phylumList: TaxonData[] = [];
   classList: TaxonData[] = [];
@@ -24,6 +25,7 @@ export class SearchBarComponent implements OnInit {
   speciesList: TaxonData[] = [];
   vernacularNameList: TaxonData[] = [];
 
+  //Represents the actual id of the selected rank, -1 if none
   kingdomRank: TaxonRank = new TaxonRank(-1, SpeciesRank.Kingdom.name);
   phylumRank: TaxonRank = new TaxonRank(-1, SpeciesRank.Phylum.name);
   classRank: TaxonRank = new TaxonRank(-1, SpeciesRank.Class.name);
@@ -32,6 +34,7 @@ export class SearchBarComponent implements OnInit {
   genusRank: TaxonRank = new TaxonRank(-1, SpeciesRank.Genus.name);
   speciesRank: TaxonRank = new TaxonRank(-1, SpeciesRank.Species.name);
 
+  //Represents the actual value for the field
   kingdomValue: string = "";
   phylumValue: string = "";
   classValue: string = "";
@@ -40,6 +43,7 @@ export class SearchBarComponent implements OnInit {
   genusValue: string = "";
   speciesValue: string = "";
 
+  //Represents the child components
   @ViewChild('kingdomInput') kingdomInput!: AutocompleteInputComponent
   @ViewChild('phylumInput') phylumInput!: AutocompleteInputComponent
   @ViewChild('classInput') classInput!: AutocompleteInputComponent
@@ -71,7 +75,9 @@ export class SearchBarComponent implements OnInit {
   async onNewKingdomValue(newValue: string) {
     this.kingdomValue = newValue;
     this.kingdomRank = await this.speciesService.calculateNewTaxonRankIdByValue(newValue, this.kingdomRank);
-    if (this.phylumRank.id == -1) {
+    if (this.kingdomRank.id == -1) {
+      this.phylumValue = this.phylumRank.id != -1 ? "" : this.phylumValue;
+      this.phylumInput._inputValue = this.phylumValue;
       this.kingdomList = await this.speciesService.getData(newValue, this.kingdomRank, []);
     } else {
       this.kingdomList = [new TaxonData(this.kingdomRank.id, newValue)];
@@ -86,6 +92,8 @@ export class SearchBarComponent implements OnInit {
     }
     this.phylumValue = newValue;
     if (this.phylumRank.id == -1) {
+      this.classValue = this.classRank.id != -1 ? "" : this.classValue;
+      this.classInput._inputValue = this.classValue;
       this.phylumList = await this.speciesService.getData(newValue, this.phylumRank, [this.kingdomRank]);
     } else {
       this.phylumList = [new TaxonData(this.phylumRank.id, newValue)];
@@ -100,6 +108,8 @@ export class SearchBarComponent implements OnInit {
     }
     this.classValue = newValue;
     if (this.classRank.id == -1) {
+      this.orderValue = this.orderRank.id != -1 ? "" : this.orderValue;
+      this.orderInput._inputValue = this.orderValue;
       this.classList = await this.speciesService.getData(newValue, this.classRank, [this.phylumRank, this.kingdomRank]);
     } else {
       this.classList = [new TaxonData(this.classRank.id, newValue)];
@@ -114,6 +124,8 @@ export class SearchBarComponent implements OnInit {
     }
     this.orderValue = newValue;
     if (this.orderRank.id == -1) {
+      this.familyValue = this.familyRank.id != -1 ? "" : this.familyValue;
+      this.familyInput._inputValue = this.familyValue;
       this.orderList = await this.speciesService.getData(newValue, this.orderRank, [this.classRank, this.phylumRank, this.kingdomRank]);
     } else {
       this.orderList = [new TaxonData(this.orderRank.id, newValue)];
@@ -128,6 +140,8 @@ export class SearchBarComponent implements OnInit {
     }
     this.familyValue = newValue;
     if (this.familyRank.id == -1) {
+      this.genusValue = this.genusRank.id != -1 ? "" : this.genusValue;
+      this.genusInput._inputValue = this.phylumValue;
       this.familyList = await this.speciesService.getData(newValue, this.familyRank, [this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
     } else {
       this.familyList = [new TaxonData(this.familyRank.id, newValue)];
@@ -142,6 +156,8 @@ export class SearchBarComponent implements OnInit {
     }
     this.genusValue = newValue;
     if (this.genusRank.id == -1) {
+      this.speciesValue = this.speciesRank.id != -1 ? "" : this.speciesValue;
+      this.speciesInput._inputValue = this.speciesValue;
       this.genusList = await this.speciesService.getData(newValue, this.genusRank, [this.familyRank, this.orderRank, this.classRank, this.phylumRank, this.kingdomRank]);
     } else {
       this.genusList = [new TaxonData(this.genusRank.id, newValue)];
