@@ -54,6 +54,9 @@ export class SpeciesService {
               } else if (actualRank.rank == element.rank) {
                 result.push(new TaxonData(element.nubKey, element.canonicalName ?? element.scientificName))
               }
+              if (result.length >= 20) {
+                break;
+              }
             }
           });
     }
