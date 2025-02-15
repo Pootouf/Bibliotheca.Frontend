@@ -12,7 +12,13 @@
     transition: all 0.2s ease;
 
     &:hover {
-        transform: scale(1.05);
+        width: 35rem;
+        height: 20rem;
+        z-index: 2;
+        margin-top: -2.5rem;
+        margin-bottom: -2.5rem;
+        margin-left: -2.5rem;
+        margin-right: -2.5rem;
     }
 }
 
