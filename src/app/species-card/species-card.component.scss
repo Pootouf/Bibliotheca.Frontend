@@ -12,8 +12,7 @@
     transition: all 0.2s ease;
 
     &:hover {
-        width: 35rem;
-        height: 20rem;
+        transform: scale(1.05);
     }
 }
 
